@@ -1,5 +1,6 @@
 extern "C"{
 	#include <yaz/zoom.h>
+    #include <yaz/yaz-version.h>
 }
 #include <node.h>
 #include "scanset.h"
@@ -59,11 +60,16 @@ Handle<Value> ScanSetObject::term(const Arguments& args){
 	ScanSetObject * obj = node::ObjectWrap::Unwrap<ScanSetObject>(args.This());
 	
 	const char * value_term;
-	size_t pos, *occ = 0, *len = 0;
-	
+    size_t pos;
+#if YAZ_VERSIONL >= 0x040000
+    size_t occ, len;
+#else
+    int occ, len;
+#endif
+
 	pos = args[0]->ToNumber()->Value();
 	
-	value_term = ZOOM_scanset_term(obj->scan, pos, occ, len);
+	value_term = ZOOM_scanset_term(obj->scan, pos, &occ, &len);
 	return scope.Close(String::New(value_term));
 }
 
@@ -73,11 +79,16 @@ Handle<Value> ScanSetObject::displayTerm(const Arguments& args){
 	ScanSetObject * obj = node::ObjectWrap::Unwrap<ScanSetObject>(args.This());
 	
 	const char * display_term;
-	size_t pos, *occ = 0, *len = 0;
+    size_t pos;
+#if YAZ_VERSIONL >= 0x040000
+    size_t occ, len;
+#else
+    int occ, len;
+#endif
 	
 	pos = args[0]->ToNumber()->Value();
 	
-	display_term = ZOOM_scanset_display_term(obj->scan, pos, occ, len);
+	display_term = ZOOM_scanset_display_term(obj->scan, pos, &occ, &len);
 	
 	return scope.Close(String::New(display_term));
 }
