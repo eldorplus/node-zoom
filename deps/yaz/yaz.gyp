@@ -19,12 +19,20 @@
       },
       'cflags': [
         '<!@(pkg-config --cflags gnutls)',
-        '<!@(xml2-config --cflags)'
+        '<!@(xml2-config --cflags)',
+        '<!@(libgcrypt-config --cflags)'
       ],
       'xcode_settings': {
         'OTHER_CFLAGS': [
           '<!@(pkg-config --cflags gnutls)',
-          '<!@(xml2-config --cflags)'
+          '<!@(xml2-config --cflags)',
+          '<!@(libgcrypt-config --cflags)'
+        ]
+      },
+      'direct_dependent_settings': {
+        'include_dirs': [
+          '<(yazdir)/src',
+          '<(yazdir)/include'
         ]
       },
       'include_dirs': [
@@ -237,8 +245,8 @@
       'link_settings': {
         'libraries': [
           '<!@(pkg-config --libs gnutls)',
-          '-lgcrypt',
-          '<!@(xml2-config --cflags)'
+          '<!@(libgcrypt-config --libs)',
+          '<!@(xml2-config --libs)'
         ]
       }
     }

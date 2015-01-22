@@ -5,7 +5,7 @@
       'cflags': [],
       'libraries': [],
       'dependencies': [
-        './deps/yaz/yaz.gyp:yaz'
+        '<(module_root_dir)/deps/yaz/yaz.gyp:yaz'
       ],
       'sources': [
         'src/zoom.cc',
