@@ -1,10 +1,20 @@
 {
-  "targets": [
+  'targets': [
     {
-      "cflags": ["<!@(yaz-config --cflags)"],
-      "libraries": ["<!@(yaz-config --libs)"],
-      "target_name": "zoom",
-      "sources": [ "src/zoom.cc", "src/record.cc", "src/resultset.cc", "src/query.cc", "src/scanset.cc", "src/connection.cc" ]
+      'target_name': 'zoom',
+      'cflags': [],
+      'libraries': [],
+      'dependencies': [
+        './deps/yaz/yaz.gyp:yaz'
+      ],
+      'sources': [
+        'src/zoom.cc',
+        'src/record.cc',
+        'src/resultset.cc',
+        'src/query.cc',
+        'src/scanset.cc',
+        'src/connection.cc'
+      ]
     }
   ]
 }
