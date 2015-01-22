@@ -25,7 +25,6 @@ class RecordObject : public node::ObjectWrap {
 		static v8::Persistent<v8::Function> constructor;
 		RecordObject();
 		~RecordObject();
-
 };
 
 #endif

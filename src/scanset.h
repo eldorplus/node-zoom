@@ -23,7 +23,6 @@ class ScanSetObject : public node::ObjectWrap {
 		ZOOM_scanset scan;
 		ScanSetObject();
 		~ScanSetObject();
-
 };
 
 #endif

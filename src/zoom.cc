@@ -1,6 +1,7 @@
 extern "C"{
 	#include <yaz/zoom.h>
 }
+
 #include <node.h>
 #include "connection.h"
 #include "scanset.h"

@@ -2,6 +2,7 @@ extern "C"{
 	#include <yaz/zoom.h>
     #include <yaz/yaz-version.h>
 }
+
 #include <node.h>
 #include "scanset.h"
 
@@ -61,11 +62,7 @@ Handle<Value> ScanSetObject::term(const Arguments& args){
 	
 	const char * value_term;
     size_t pos;
-#if YAZ_VERSIONL >= 0x040000
     size_t occ, len;
-#else
-    int occ, len;
-#endif
 
 	pos = args[0]->ToNumber()->Value();
 	
@@ -80,11 +77,7 @@ Handle<Value> ScanSetObject::displayTerm(const Arguments& args){
 	
 	const char * display_term;
     size_t pos;
-#if YAZ_VERSIONL >= 0x040000
     size_t occ, len;
-#else
-    int occ, len;
-#endif
 	
 	pos = args[0]->ToNumber()->Value();
 	

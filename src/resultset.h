@@ -23,8 +23,6 @@ class ResultSetObject : public node::ObjectWrap {
 		static v8::Persistent<v8::Function> constructor;
 		ResultSetObject();
 		~ResultSetObject();
-
 };
 
 #endif
-
