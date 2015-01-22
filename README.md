@@ -3,11 +3,17 @@ NODE-ZOOM
 
 ## Requirements
 
-[YAZ](http://www.indexdata.dk/yaz/)
+* [gnutls](http://www.gnutls.org/)
+* [gcrypt](http://www.gnu.org/software/libgcrypt/)
+* [libxml2](http://xmlsoft.org/)
+
+### Debian/Ubuntu
+
+    $ sudo apt-get install libgcrypt11-dev libgnutls-dev libxml2-dev
 
 ## Installaction
 
-    $ npm install node-zoom
+    $ npm i node-zoom
 
 ## Example
 
