@@ -1,1 +1,3 @@
-exports = module.exports = require('./lib/');
+'use strict';
+
+module.exports = require('./build/Release/zoom.node');

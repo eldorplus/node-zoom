@@ -7,13 +7,12 @@
       'dependencies': [
         '<(module_root_dir)/deps/yaz/yaz.gyp:yaz'
       ],
+      'include_dirs': [
+        '<!(node -e "require(\'nan\')")'
+      ],
       'sources': [
         'src/zoom.cc',
-        'src/record.cc',
-        'src/resultset.cc',
-        'src/query.cc',
-        'src/scanset.cc',
-        'src/connection.cc'
+        'src/options.cc'
       ]
     }
   ]

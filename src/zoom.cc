@@ -1,38 +1,10 @@
-extern "C"{
-	#include <yaz/zoom.h>
-}
-
-#include <node.h>
-#include "connection.h"
-#include "scanset.h"
-#include "query.h"
-#include "resultset.h"
-#include "record.h"
+#include <nan.h>
+#include "options.h"
 
 using namespace v8;
 
-Handle<Value> CreateConnection(const Arguments& args) {
-	HandleScope scope;
-	return scope.Close(ConnectionObject::NewInstance(args));
+void InitAll(Handle<Object> exports) {
+    node_zoom::Options::Init(exports);
 }
 
-void initAll(Handle<Object> target){
-
-	ConnectionObject::Init();
-	ScanSetObject::Init();
-	QueryObject::Init();
-	ResultSetObject::Init();
-	RecordObject::Init();
-
-	Handle<ObjectTemplate> Connection = ObjectTemplate::New();
-
-	Connection->Set(String::New("create"), FunctionTemplate::New(CreateConnection)->GetFunction());
-
-	target->Set(String::NewSymbol("connection"), Connection->NewInstance());
-	target->Set(String::NewSymbol("query"), QueryObject::NewInstance());
-  target->Set(String::NewSymbol("scanset"), ScanSetObject::NewInstance());
-  target->Set(String::NewSymbol("resultset"), ResultSetObject::NewInstance());
-	target->Set(String::NewSymbol("record"), RecordObject::NewInstance());
-}
-
-NODE_MODULE(zoom, initAll);
+NODE_MODULE(zoom, InitAll);

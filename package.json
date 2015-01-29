@@ -2,7 +2,7 @@
   "name": "node-zoom",
   "version": "0.0.5",
   "description": "z39.50",
-  "main": "./lib/index.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
@@ -22,7 +22,10 @@
   "license": "MIT",
   "gypfile": true,
   "devDependencies": {
-    "chai": "~1.8.0",
-    "mocha": "~1.13.0"
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  },
+  "dependencies": {
+    "nan": "^1.5.1"
   }
 }
