@@ -13,8 +13,10 @@
       'sources': [
         'src/zoom.cc',
         'src/query.cc',
+        'src/record.cc',
         'src/errors.cc',
-        'src/options.cc'
+        'src/options.cc',
+        'src/resultset.cc'
       ]
     }
   ]
