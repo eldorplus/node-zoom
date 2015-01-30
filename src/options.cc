@@ -37,17 +37,25 @@ Options::~Options() {
 
 NAN_METHOD(Options::New) {
     NanScope();
-    Options* obj;
 
-    if (args[0]->IsUndefined()) {
-        obj = new Options();
+    if (args.IsConstructCall()) {
+        Options* obj;
+
+        if (args[0]->IsUndefined()) {
+            obj = new Options();
+        } else {
+            Options* opts = node::ObjectWrap::Unwrap<Options>(args[0]->ToObject());
+            obj = new Options(opts);
+        }
+
+        obj->Wrap(args.This());
+        NanReturnValue(args.This());
     } else {
-        Options* opts = node::ObjectWrap::Unwrap<Options>(args[0]->ToObject());
-        obj = new Options(opts);
+        const int argc = 1;
+        Local<Value> argv[argc] = { args[0] };
+        Local<Function> cons = NanNew<Function>(constructor);
+        NanReturnValue(cons->NewInstance(argc, argv));
     }
-
-    obj->Wrap(args.This());
-    NanReturnValue(args.This());
 }
 
 NAN_METHOD(Options::Get) {
@@ -63,7 +71,9 @@ NAN_METHOD(Options::Get) {
 
     const char *value = ZOOM_options_get(opts->zopts_, *key);
 
-    NanReturnValue(NanNew(value));
+    if (value) {
+        NanReturnValue(NanNew(value));
+    }
 }
 
 NAN_METHOD(Options::Set) {

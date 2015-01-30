@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var Options = require('..').Options;
+var Options = require('..').binding.Options;
 
 describe('Options', function () {
 
@@ -66,6 +66,11 @@ describe('Options', function () {
       expect(opts.get('num')).to.equal('123');
       expect(opts.get('null')).to.equal('null');
       expect(opts.get('undefined')).to.equal('undefined');
+    });
+
+    it('should get undefined', function () {
+      expect(opts.get('aaa')).to.be.an('undefined');
+      expect(opts.get('bbb')).to.be.an('undefined');
     });
   });
 });

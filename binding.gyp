@@ -12,6 +12,8 @@
       ],
       'sources': [
         'src/zoom.cc',
+        'src/query.cc',
+        'src/errors.cc',
         'src/options.cc'
       ]
     }
