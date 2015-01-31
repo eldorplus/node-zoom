@@ -10,7 +10,7 @@ NODE-ZOOM
 #### Debian/Ubuntu
 
 ```bash
-$ sudo apt-get install libgcrypt11-dev libgnutls-dev libxml2-dev
+$ sudo apt-get install libgcrypt11-dev libgnutls28-dev libxml2-dev
 ```
 
 ### Installaction
