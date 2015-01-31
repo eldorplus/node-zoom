@@ -1,7 +1,7 @@
 #pragma once
 #include <nan.h>
 
-extern "C"{
+extern "C" {
     #include <yaz/zoom.h>
 }
 
@@ -15,10 +15,10 @@ class Record : public node::ObjectWrap {
         static void Init();
         static NAN_METHOD(New);
         static NAN_METHOD(Get);
+        static v8::Persistent<v8::Function> constructor;
 
     protected:
         ZOOM_record zrecord_;
-        static v8::Persistent<v8::Function> constructor;
 };
 
 } // namespace node_zoom

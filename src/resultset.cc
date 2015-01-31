@@ -1,4 +1,5 @@
 #include "errors.h"
+#include "records.h"
 #include "resultset.h"
 
 using namespace v8;
@@ -16,8 +17,10 @@ void ResultSet::Init() {
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
     
     // Prototype
-    NODE_SET_PROTOTYPE_METHOD(tpl, "set", Set);
-    NODE_SET_PROTOTYPE_METHOD(tpl, "get", Get);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "setOption", SetOption);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "getOption", GetOption);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "size", Size);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "getRecords", GetRecords);
 
     NanAssignPersistent(constructor, tpl->GetFunction());
 }
@@ -30,7 +33,7 @@ ResultSet::~ResultSet() {
 
 NAN_METHOD(ResultSet::New) {}
 
-NAN_METHOD(ResultSet::Get) {
+NAN_METHOD(ResultSet::GetOption) {
     ResultSet* resset = node::ObjectWrap::Unwrap<ResultSet>(args.This());
 
     if (args.Length() < 1) {
@@ -46,7 +49,7 @@ NAN_METHOD(ResultSet::Get) {
     }
 }
 
-NAN_METHOD(ResultSet::Set) {
+NAN_METHOD(ResultSet::SetOption) {
     ResultSet* resset = node::ObjectWrap::Unwrap<ResultSet>(args.This());
 
     if (args.Length() < 2) {
@@ -59,6 +62,51 @@ NAN_METHOD(ResultSet::Set) {
     ZOOM_resultset_option_set(resset->zset_, *key, *value);
 
     NanReturnValue(args.This());
+}
+
+NAN_METHOD(ResultSet::GetRecords) {
+    NanScope();
+
+    if (args.Length() < 2) {
+        NanThrowError(ArgsSizeError("Records", 2, args.Length()));
+        return;
+    }
+
+    ResultSet* resset = node::ObjectWrap::Unwrap<ResultSet>(args.This());
+    size_t index = args[0]->Uint32Value();
+    size_t counts = args[1]->Uint32Value();
+
+    NanCallback *callback = new NanCallback(args[2].As<Function>());
+    GetRecordsWorker *worker = new GetRecordsWorker(
+        callback, resset->zset_, index, counts);
+
+    NanAsyncQueueWorker(worker);
+}
+
+NAN_METHOD(ResultSet::Size) {
+    NanScope();
+    ResultSet * resset = node::ObjectWrap::Unwrap<ResultSet>(args.This());
+    NanReturnValue(NanNew<Number>(ZOOM_resultset_size(resset->zset_)));
+}
+
+void GetRecordsWorker::Execute() {
+    zrecords_ = new ZOOM_record[counts_];
+    ZOOM_resultset_records(zresultset_, zrecords_, index_, counts_);
+}
+
+void GetRecordsWorker::HandleOKCallback() {
+    NanScope();
+
+    Records* records = new Records(zrecords_, counts_);
+    Local<Object> wrapper = NanNew(Records::constructor)->NewInstance();
+    NanSetInternalFieldPointer(wrapper, 0, records);
+
+    Local<Value> argv[] = {
+        NanNull(),
+        wrapper
+    };
+
+    callback->Call(2, argv);
 }
 
 } // namespace node_zoom

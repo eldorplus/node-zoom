@@ -35,6 +35,10 @@ Options::~Options() {
     ZOOM_options_destroy(zopts_);
 }
 
+ZOOM_options Options::zoom_options() {
+    return zopts_;
+}
+
 NAN_METHOD(Options::New) {
     NanScope();
 

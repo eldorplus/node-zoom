@@ -1,7 +1,7 @@
 #pragma once
 #include <nan.h>
 
-extern "C"{
+extern "C" {
     #include <yaz/zoom.h>
 }
 
@@ -17,6 +17,7 @@ class Options : public node::ObjectWrap {
         static NAN_METHOD(New);
         static NAN_METHOD(Get);
         static NAN_METHOD(Set);
+        ZOOM_options zoom_options();
     
     protected:
         ZOOM_options zopts_;

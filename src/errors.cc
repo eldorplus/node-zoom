@@ -32,7 +32,8 @@ v8::Local<v8::Value> ArgTypeError(const char *arg, const char *expect) {
     ss << "The "
         << arg
         << " argument must be "
-        << (is_vowel ? "an" : "a");
+        << (is_vowel ? "an" : "a")
+        << " " << expect;
 
     return NanTypeError(ss.str().c_str());
 }

@@ -30,6 +30,8 @@ Record::~Record() {
 NAN_METHOD(Record::New) {}
 
 NAN_METHOD(Record::Get) {
+    NanScope();
+
     Record* record = node::ObjectWrap::Unwrap<Record>(args.This());
 
     if (args.Length() < 1) {

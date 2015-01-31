@@ -15,8 +15,10 @@
         'src/query.cc',
         'src/record.cc',
         'src/errors.cc',
+        'src/records.cc',
         'src/options.cc',
-        'src/resultset.cc'
+        'src/resultset.cc',
+        'src/connection.cc'
       ]
     }
   ]

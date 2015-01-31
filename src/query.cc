@@ -96,4 +96,8 @@ NAN_METHOD(Query::SortBy) {
     NanReturnValue(args.This());
 }
 
+ZOOM_query Query::zoom_query() {
+    return zquery_;
+}
+
 } // namespace node_zoom

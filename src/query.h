@@ -1,8 +1,7 @@
 #pragma once
 #include <nan.h>
-#include <string>
 
-extern "C"{
+extern "C" {
     #include <yaz/zoom.h>
 }
 
@@ -18,6 +17,7 @@ class Query : public node::ObjectWrap {
         static NAN_METHOD(Prefix);
         static NAN_METHOD(CQL);
         static NAN_METHOD(SortBy);
+        ZOOM_query zoom_query();
 
     protected:
         ZOOM_query zquery_;
