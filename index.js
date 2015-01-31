@@ -1,3 +1,3 @@
 'use strict';
 
-exports.binding = require('./build/Release/zoom.node');
+module.exports = require('./lib');

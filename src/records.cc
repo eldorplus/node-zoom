@@ -37,10 +37,15 @@ NAN_METHOD(Records::Next) {
         NanThrowRangeError("Out of range");
     } else {
         ZOOM_record zrecord = resset->zrecords_[resset->index_++];
-        Record* record = new Record(ZOOM_record_clone(zrecord));
-        Local<Object> wrapper = NanNew(Record::constructor)->NewInstance();
-        NanSetInternalFieldPointer(wrapper, 0, record);
-        NanReturnValue(wrapper);
+
+        if (zrecord == NULL) {
+            NanReturnNull();
+        } else {
+            Record* record = new Record(ZOOM_record_clone(zrecord));
+            Local<Object> wrapper = NanNew(Record::constructor)->NewInstance();
+            NanSetInternalFieldPointer(wrapper, 0, record);
+            NanReturnValue(wrapper);
+        }
     }
 }
 

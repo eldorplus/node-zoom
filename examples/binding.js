@@ -1,6 +1,6 @@
-var Options = require('./').binding.Options;
-var Connection = require('./').binding.Connection;
-var Query = require('./').binding.Query;
+var Options = require('../').binding.Options;
+var Connection = require('../').binding.Connection;
+var Query = require('../').binding.Query;
 
 var o = new Options();
 o.set('databaseName', 'INNOPAC');
