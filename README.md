@@ -9,23 +9,29 @@ NODE-ZOOM
 
 #### Debian/Ubuntu
 
-    $ sudo apt-get install libgcrypt11-dev libgnutls-dev libxml2-dev
+```bash
+$ sudo apt-get install libgcrypt11-dev libgnutls-dev libxml2-dev
+```
 
 ### Installaction
 
-    $ npm i node-zoom
+```bash
+$ npm i node-zoom
+```
 
 ## Example
 
-    var zoom = require('node-zoom');
+```javascript
+var zoom = require('node-zoom');
 
-    zoom.connection('192.83.186.170:210/INNOPAC')
-      .set('preferredRecordSyntax', 'usmarc')
-      .query('prefix', '@attr 1=4 台灣')
-      .createReadStream()
-      .on('data', function (record) {
-        console.log(record.json);
-      });
+zoom.connection('192.83.186.170:210/INNOPAC')
+  .set('preferredRecordSyntax', 'usmarc')
+  .query('prefix', '@attr 1=4 台灣')
+  .createReadStream()
+  .on('data', function (record) {
+    console.log(record.json);
+  });
+```
 
 ## API
 
