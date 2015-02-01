@@ -57,9 +57,9 @@ zoom.connection('192.83.186.170:210/INNOPAC')
 
 * `.json`
 * `.database`
-* `syntax`
-* `schema`
-* `render`
+* `.syntax`
+* `.schema`
+* `.render`
 * `.raw`
 * `.xml`
 * `.txml`
